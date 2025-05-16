@@ -1,0 +1,18 @@
+{% load static %}
+<html>
+  <head>
+    {% load static %}
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>
+      {% block title %}
+
+      {% endblock %}
+    </title>
+  </head>
+  <body class="bg-slate-100">
+    {% block content %}
+
+    {% endblock %}
+  </body>
+</html>

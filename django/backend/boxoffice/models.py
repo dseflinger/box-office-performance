@@ -20,6 +20,7 @@ class Movie(models.Model):
     genre = models.CharField(max_length=10, choices=Genre.choices, default=Genre.ACTION)
     release_date = models.DateField()
     duration_minutes = models.IntegerField()
+    #todo should i add review/rotten tomato score?
 
 class Sale(models.Model):
     theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
