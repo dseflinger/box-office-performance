@@ -21,7 +21,7 @@ class Movie(models.Model):
     release_date = models.DateField()
     duration_minutes = models.IntegerField()
 
-class Sales(models.Model):
+class Sale(models.Model):
     theater = models.ForeignKey(Theater, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     date = models.DateField()
