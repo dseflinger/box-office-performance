@@ -1,0 +1,1 @@
+This is a project for analyzing box office performance, using two programs, Django and Next.js.
