@@ -5,6 +5,9 @@ class Theater(models.Model):
     location = models.CharField(max_length=100, null=False, blank=False)
     num_screens = models.IntegerField()
     capacity = models.IntegerField()
+    #todo should a theater have a list of movies? (many to many)
+    def __str__(self):
+        return self.name
 
 class Movie(models.Model):
     class Genre(models.TextChoices):

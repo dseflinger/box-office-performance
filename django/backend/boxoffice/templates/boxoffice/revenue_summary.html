@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Revenue Summary: {{ date }}</h2>
+
+  <ul>
+    <li>Top theater (by revenue): {{ top_theater }}</li>
+    <li>Top theater (by tickets): {{ top_theater_by_tickets }}</li>
+    <li>Best Selling Movie:</li>
+    <li>Top Genre:</li>
+  </ul>
+
+  <br />
+  <h1>Sales by Theater</h1>
+
+  <table class="border-separate table-auto">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Total Revenue</th>
+        <th>Total Tickets</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sales in sales_by_theater %}
+        <tr>
+          <td>{{ sales.name }}</td>
+          <td>{{ sales.total_sum }}</td>
+          <td>{{ sales.total_tickets }}</td>
+          {% comment %}todo add ticket price?{% endcomment %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'home' %}">Home</a>
+{% endblock %}
