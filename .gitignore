@@ -5,3 +5,5 @@ __pycache__/
 bin/
 obj/
 #  todo should probably remove vscode
+
+appsettings.json

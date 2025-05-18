@@ -2,9 +2,21 @@
 using Dapper;
 using System.Linq;
 using ConsoleTables;
+using Microsoft.Extensions.Configuration;
 
-// todo do i need to hide my connection string?
-var connectionString = "Host=localhost;Username=postgres;Password=danPost4247?;Database=boxoffice_db";
+IConfigurationRoot config = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .Build();
+
+string? connectionString = config.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    Console.WriteLine("Error: Connection string is missing.");
+    return;
+}
+
 
 await using var dataSource = NpgsqlDataSource.Create(connectionString);
 await using var connection = await dataSource.OpenConnectionAsync(); // might be able to skip this by connnecting to string directly
@@ -12,6 +24,7 @@ await using var connection = await dataSource.OpenConnectionAsync(); // might be
 bool validDate = false;
 DateTime date = new DateTime();
 
+// todo maybe validation if future or way in the past dates
 while (!validDate)
 {
     Console.WriteLine("Enter a date: ");
@@ -36,8 +49,8 @@ var query = @"
     WHERE 
         boxoffice_sale.date = @date 
     GROUP BY 
-        1, 2";
-// todo maybe add limit
+        1, 2
+    LIMIT 50";
 
 var salesByTheater = connection.Query<SaleByTheater>(query, new { date = date }).ToList();
 var topTheaterByRevenue = salesByTheater.OrderByDescending(x => x.TotalSum).FirstOrDefault();
@@ -46,6 +59,8 @@ var topTheaterByTickets = salesByTheater.OrderByDescending(x => x.TotalTickets).
 if (salesByTheater.Any() == true)
 {
     Console.WriteLine("\n------------------------------Results Summary------------------------------\n");
+    Console.WriteLine($"{date:MMMM dd, yyyy}");
+
     Console.WriteLine($"Top theater By Revenue:  {topTheaterByRevenue?.Name}");
     Console.WriteLine($"Top theater By Tickets:  {topTheaterByTickets?.Name}\n");
     Console.WriteLine("Sales by Theater");
@@ -57,7 +72,5 @@ if (salesByTheater.Any() == true)
 }
 else
 {
-    Console.WriteLine("No sales this day");
+    Console.WriteLine($"\nNo sales for {date:MMMM dd, yyyy}");
 }
-
-// maybe add keyboard things to leave if not built in?
