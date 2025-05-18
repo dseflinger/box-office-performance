@@ -1,4 +1,29 @@
 {% extends 'base.html' %}
 {% block content %}
-  Movies!!!
+  <h2 class="text-center text-3xl font-bold mb-6">Movies</h2>
+
+  {% if movies.count > 0 %}
+    <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+      <thead class="bg-blue-200 text-left text-gray-700 uppercase text-sm">
+        <tr>
+          <th class="p-3 text-left">Name</th>
+          <th class="p-3">Genre</th>
+          <th class="p-3">Release Date</th>
+          <th class="p-3">Duration (minutes)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for movie in movies %}
+          <tr>
+            <td class="p-3">{{ movie.name }}</td>
+            <td class="p-3">{{ movie.genre }}</td>
+            <td class="p-3">{{ movie.release_date }}</td>
+            <td class="p-3">{{ movie.duration_minutes }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No movies</p>
+  {% endif %}
 {% endblock %}
