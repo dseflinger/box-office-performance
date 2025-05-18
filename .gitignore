@@ -1,4 +1,6 @@
-# Ignore virtual environment folder
 .venv/
 __pycache__/
 *.py[cod]
+
+bin/
+obj/
