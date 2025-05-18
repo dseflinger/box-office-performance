@@ -65,3 +65,6 @@ cd console_app/boxoffice
 dotnet run
 ```
 The app will prompt you for a date and will give a revenue summary.
+
+## Schema
+See (schema/schema_explanation.md)
