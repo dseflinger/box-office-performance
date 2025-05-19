@@ -1,8 +1,9 @@
-from django.http import HttpResponseBadRequest
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from boxoffice.models import Movie, Theater, Sale
 from django.db.models import Sum, F
 from datetime import datetime
+from django.contrib import messages
+from datetime import date, timedelta
 
 def home(request):
     return render(request, "boxoffice/home.html")
@@ -20,15 +21,22 @@ def sales_list(request):
     return render(request, "boxoffice/sales.html", {"sales": sales})
 
 def revenue_summary(request):
-    # todo: should i add validation for date range? (too far in future or past)
     if request.method == 'GET':
-        date = request.GET.get('date')
+        dateInputStr = request.GET.get('date')
         try:
-            datetime.strptime(date, "%Y-%m-%d")
+            dateInput = datetime.strptime(dateInputStr, "%Y-%m-%d").date()
         except (ValueError, TypeError):
-            return HttpResponseBadRequest("Invalid date format")
+            messages.error(request, 'Invalid date format')
+            return redirect("home")
         
-        sales_by_date = Sale.objects.filter(date=date)
+        today = date.today()
+        pastDate = today - timedelta(days=365)
+        futuredate = today + timedelta(days=365)
+        if  dateInput > futuredate or dateInput < pastDate :
+            messages.error(request, 'Date must be within 1 year of today')
+            return redirect("home")
+        
+        sales_by_date = Sale.objects.filter(date=dateInputStr)
         sales_by_theater = (
             sales_by_date
                 .values('theater')
@@ -45,7 +53,7 @@ def revenue_summary(request):
         best_selling_movie = sales_by_movies.order_by("-total_sum").first()
 
         return render(request, "boxoffice/revenue_summary.html", 
-                      {"date": date, 
+                      {"date": dateInputStr, 
                        "sales_by_theater" : sales_by_theater, 
                        "top_theater": top_theater_name, 
                        "top_theater_by_tickets": top_theater_by_tickets_name, 

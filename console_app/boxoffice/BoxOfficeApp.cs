@@ -15,14 +15,26 @@ public class BoxOfficeApp
 
         bool validDate = false;
         DateTime date = new DateTime();
+        DateTime today = DateTime.Today;
+        DateTime minDate = today.AddYears(-1);
+        DateTime maxDate = today.AddYears(1);
 
-        // todo maybe validation if future or way in the past dates
         while (!validDate)
         {
             Console.WriteLine("Enter a date: ");
             var dateString = Console.ReadLine();
 
-            validDate = DateTime.TryParse(dateString, out date);
+            if (DateTime.TryParse(dateString, out date))
+            {
+                if (date >= minDate && date <= maxDate)
+                {
+                    validDate = true;
+                }
+                else
+                {
+                    Console.WriteLine("Date must be within 1 year of today");
+                }
+            }
         }
         var sales = await GetSalesByTheater(date);
         DisplaySales(sales, date);
