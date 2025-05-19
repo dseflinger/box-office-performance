@@ -9,15 +9,15 @@ def home(request):
     return render(request, "boxoffice/home.html")
 
 def movies_list(request):
-    movies = Movie.objects.all()
+    movies = Movie.objects.all().order_by('name')[:50]
     return render(request, "boxoffice/movies.html", {"movies": movies})
 
 def theaters_list(request):
-    theaters = Theater.objects.all()
+    theaters = Theater.objects.all().order_by('name')[:50]
     return render(request, "boxoffice/theaters.html", {"theaters": theaters})
 
 def sales_list(request):
-    sales = Sale.objects.all()
+    sales = Sale.objects.all().order_by('-date')[:50]
     return render(request, "boxoffice/sales.html", {"sales": sales})
 
 def revenue_summary(request):
