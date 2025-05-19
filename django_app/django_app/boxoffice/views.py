@@ -53,7 +53,7 @@ def revenue_summary(request):
         best_selling_movie = sales_by_movies.order_by("-total_sum").first()
 
         return render(request, "boxoffice/revenue_summary.html", 
-                      {"date": dateInputStr, 
+                      {"date": dateInput, 
                        "sales_by_theater" : sales_by_theater, 
                        "top_theater": top_theater_name, 
                        "top_theater_by_tickets": top_theater_by_tickets_name, 

@@ -1,6 +1,6 @@
 # BoxOfficeApp
 This is a project for analyzing box office performance, using two programs querying the same dataset in PostgreSQL:
- - Django
+ - Django web app with Tailwind CSS
  - .NET 8.0 Console App (C#)
 ---
 ## Initial Setup Note

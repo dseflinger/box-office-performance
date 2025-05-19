@@ -2,8 +2,7 @@
 {% block content %}
   <div class="text-center mb-10">
     <h2 class="text-3xl font-bold mb-2">Revenue Summary</h2>
-    <p class="text-gray-600 text-lg">{{ date }}</p>
-    {% comment %}todo fix date format{% endcomment %}
+    <p class="text-gray-600 text-lg">{{ date|date:'F j, Y' }}</p>
   </div>
   {% if sales_by_theater.count > 0 %}
     <ul class="space-y-1">
