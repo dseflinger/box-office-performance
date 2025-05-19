@@ -22,26 +22,28 @@
 
     <h1 class="text-2xl font-semibold mt-6 mb-4">Sales by Theater</h1>
 
-    <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-      <thead class="bg-blue-200 text-left text-gray-700 uppercase text-sm">
-        <tr>
-          <th class="p-3 text-left">Name</th>
-          <th class="p-3">Total Revenue</th>
-          <th class="p-3">Total Tickets</th>
-          <th class="p-3">Cost Per Ticket</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for sales in sales_by_theater %}
+    <div class="max-h-[60vh] rounded-lg shadow-md overflow-y-auto">
+      <table class="min-w-full bg-white rounded-lg">
+        <thead class="bg-blue-200 text-left text-gray-700 uppercase text-sm sticky top-0">
           <tr>
-            <td class="p-3">{{ sales.name }}</td>
-            <td class="p-3">${{ sales.total_sum|floatformat:2 }}</td>
-            <td class="p-3">{{ sales.total_tickets }}</td>
-            <td class="p-3">${{ sales.cost_per_ticket|floatformat:2 }}</td>
+            <th class="p-3 text-left">Name</th>
+            <th class="p-3">Total Revenue</th>
+            <th class="p-3">Total Tickets</th>
+            <th class="p-3">Cost Per Ticket</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for sales in sales_by_theater %}
+            <tr>
+              <td class="p-3">{{ sales.name }}</td>
+              <td class="p-3">${{ sales.total_sum|floatformat:2 }}</td>
+              <td class="p-3">{{ sales.total_tickets }}</td>
+              <td class="p-3">${{ sales.cost_per_ticket|floatformat:2 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   {% else %}
     <p>No sales this day</p>
   {% endif %}

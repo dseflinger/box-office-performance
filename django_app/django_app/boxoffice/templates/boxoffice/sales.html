@@ -3,28 +3,30 @@
   <h2 class="text-center text-3xl font-bold mb-6">Sales</h2>
 
   {% if sales.count > 0 %}
-    <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
-      <thead class="bg-blue-200 text-left text-gray-700 uppercase text-sm">
-        <tr>
-          <th class="p-3 text-left">Theater</th>
-          <th class="p-3">Movie</th>
-          <th class="p-3">Date</th>
-          <th class="p-3">Tickets Sold</th>
-          <th class="p-3">Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for sale in sales %}
+    <div class="max-h-[70vh] overflow-y-auto rounded-lg shadow-md">
+      <table class="min-w-full bg-white">
+        <thead class="bg-blue-200 text-left text-gray-700 uppercase text-sm sticky top-0">
           <tr>
-            <td class="p-3">{{ sale.theater }}</td>
-            <td class="p-3">{{ sale.movie }}</td>
-            <td class="p-3">{{ sale.date }}</td>
-            <td class="p-3">{{ sale.tickets_sold }}</td>
-            <td class="p-3">${{ sale.amount|floatformat:2 }}</td>
+            <th class="p-3 text-left">Theater</th>
+            <th class="p-3">Movie</th>
+            <th class="p-3">Date</th>
+            <th class="p-3">Tickets Sold</th>
+            <th class="p-3">Amount</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for sale in sales %}
+            <tr>
+              <td class="p-3">{{ sale.theater }}</td>
+              <td class="p-3">{{ sale.movie }}</td>
+              <td class="p-3">{{ sale.date }}</td>
+              <td class="p-3">{{ sale.tickets_sold }}</td>
+              <td class="p-3">${{ sale.amount|floatformat:2 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   {% else %}
     <p>No sales</p>
   {% endif %}

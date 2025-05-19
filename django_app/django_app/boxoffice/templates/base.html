@@ -4,20 +4,16 @@
     {% load static %}
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <title>
-      {% block title %}
-
-      {% endblock %}
-    </title>
+    <title>BoxOfficeApp</title>
   </head>
   <body class="bg-slate-100">
     <nav class="bg-white shadow-md p-4 flex justify-between">
       <a href="{% url 'home' %}" class="text-xl font-bold">🎬 BoxOfficeApp</a>
       <div class="space-x-4">
-        <a href="{% url 'home' %}" class="hover:underline">Home</a>
-        <a href="{% url 'movies' %}" class="hover:underline">Movies</a>
-        <a href="{% url 'theaters' %}" class="hover:underline">Theaters</a>
-        <a href="{% url 'sales' %}" class="hover:underline">Sales</a>
+        <a href="{% url 'home' %}" class="px-4 py-2 text-lg font-medium border-b-2 border-transparent hover:border-blue-400 transition-all duration-200 ease-in-out cursor-pointer">Home</a>
+        <a href="{% url 'movies' %}" class="px-4 py-2 text-lg font-medium border-b-2 border-transparent hover:border-blue-400 transition-all duration-200 ease-in-out cursor-pointer">Movies</a>
+        <a href="{% url 'theaters' %}" class="px-4 py-2 text-lg font-medium border-b-2 border-transparent hover:border-blue-400 transition-all duration-200 ease-in-out cursor-pointer">Theaters</a>
+        <a href="{% url 'sales' %}" class="px-4 py-2 text-lg font-medium border-b-2 border-transparent hover:border-blue-400 transition-all duration-200 ease-in-out cursor-pointer">Sales</a>
       </div>
     </nav>
     <main class="max-w-3xl mx-auto p-4">
