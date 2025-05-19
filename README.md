@@ -11,8 +11,9 @@ Before running either application, make sure to populate the database with sampl
 ## Django App Setup
 ### Activate Virtual Environment
 ```
+cd box_office_performance/django_app
 python -m venv venv
-.venv/scripts/activate (or your path where activate file lives)
+venv/scripts/activate (or your path where activate file lives)
 pip install -r requirements.txt
 ```
 ### PostgreSQL  Configuration
