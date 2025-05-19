@@ -42,8 +42,8 @@ def revenue_summary(request):
                 .values('theater')
                 .annotate(name = F('theater__name'), total_sum=Sum('amount'), total_tickets=Sum('tickets_sold'), cost_per_ticket=Sum('amount') / Sum('tickets_sold'))
         )
-        top_theater_name = topTheaterByRevenue(sales_by_theater)
-        top_theater_by_tickets_name = topTheaterByTicketsSold(sales_by_theater)
+        top_theater_name = get_top_theater_by_revenue(sales_by_theater)
+        top_theater_by_tickets_name = get_top_theater_by_tickets_sold(sales_by_theater)
 
         sales_by_movies = (
             sales_by_date
@@ -59,12 +59,12 @@ def revenue_summary(request):
                        "top_theater_by_tickets": top_theater_by_tickets_name, 
                        "best_selling_movie": best_selling_movie})
 
-def topTheaterByTicketsSold(sales_by_theater):
+def get_top_theater_by_tickets_sold(sales_by_theater):
     top_theater_by_tickets = sales_by_theater.order_by("-total_tickets").first()
     top_theater_by_tickets_name = top_theater_by_tickets['name'] if top_theater_by_tickets else ""
     return top_theater_by_tickets_name
 
-def topTheaterByRevenue(sales_by_theater):
+def get_top_theater_by_revenue(sales_by_theater):
     top_theater = sales_by_theater.order_by("-total_sum").first()
     top_theater_name = top_theater['name'] if top_theater else  ""
     return top_theater_name
